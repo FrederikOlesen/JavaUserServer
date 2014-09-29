@@ -5,10 +5,31 @@
  */
 package program;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import model.PersonEntity;
+
 /**
  *
  * @author frederikolesen
  */
 public class Main {
-    
+
+    public static void main(String[] args) {
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARestPU");
+
+        EntityManager em = emf.createEntityManager();
+
+        em.getTransaction().begin();
+
+        PersonEntity p = new PersonEntity("Test", "Test1", "12345678", "Test@dinmor.dk");
+        
+        em.persist(p);
+        
+        em.getTransaction().commit();
+
+    }
+
 }
