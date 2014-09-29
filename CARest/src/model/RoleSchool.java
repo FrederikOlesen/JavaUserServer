@@ -17,6 +17,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class RoleSchool implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,5 +56,5 @@ public class RoleSchool implements Serializable {
     public String toString() {
         return "model.RoleSchool[ id=" + id + " ]";
     }
-    
+
 }

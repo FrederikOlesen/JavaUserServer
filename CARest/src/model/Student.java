@@ -17,9 +17,10 @@ import javax.persistence.Id;
  */
 @Entity
 public class Student implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String semester;
-    
+
 }
