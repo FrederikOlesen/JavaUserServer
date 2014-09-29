@@ -3,6 +3,10 @@
   <persistence-unit name="CARestPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>model.PersonEntity</class>
+    <class>model.RoleSchool</class>
+    <class>model.Teacher</class>
+    <class>model.Student</class>
+    <class>model.AssistentTeacher</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/JPARestCA"/>
       <property name="javax.persistence.jdbc.user" value="Adminuser"/>
