@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
  * @author Frederik
  */
 @Entity
-public class RoleSchool implements Serializable {
+public abstract class RoleSchool implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

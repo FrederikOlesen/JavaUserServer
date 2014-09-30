@@ -30,7 +30,7 @@ public class PersonEntity implements Serializable {
 
     @OneToMany(mappedBy = "person")
     private Collection<RoleSchool> roles;
-
+    
     private String firstName;
     private String lastName;
     private String phone;
