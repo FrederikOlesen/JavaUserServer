@@ -23,7 +23,7 @@ public class PersonEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s1")
     @SequenceGenerator(name = "s1", sequenceName = "Customer_SEQ",
-            initialValue = 200000, allocationSize = 1)
+            initialValue = 1, allocationSize = 1)
     private Integer id;
 
     private String firstName;
