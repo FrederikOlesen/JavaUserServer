@@ -13,15 +13,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  *
  * @author frederikolesen
  */
 @Entity
+@Table(name = "PERSONENTITY")
 public class PersonEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s1")
     @SequenceGenerator(name = "s1", sequenceName = "PersonID_SEQ",
@@ -37,9 +40,7 @@ public class PersonEntity implements Serializable {
     public void setRoles(Collection<RoleSchool> roles) {
         this.roles = roles;
     }
-    
-    
-    
+
     private String firstName;
     private String lastName;
     private String phone;
