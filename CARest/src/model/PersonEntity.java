@@ -6,10 +6,12 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -22,9 +24,12 @@ public class PersonEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s1")
-    @SequenceGenerator(name = "s1", sequenceName = "Customer_SEQ",
+    @SequenceGenerator(name = "s1", sequenceName = "PersonID_SEQ",
             initialValue = 1, allocationSize = 1)
-    private Integer id;
+    private Long id;
+
+    @OneToMany(mappedBy = "person")
+    private Collection<RoleSchool> roles;
 
     private String firstName;
     private String lastName;
@@ -41,11 +46,11 @@ public class PersonEntity implements Serializable {
         this.email = email;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
