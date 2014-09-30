@@ -5,8 +5,8 @@
  */
 package Interfaces;
 
-import model.PersonEntity;
-import model.RoleSchool;
+import model.Person;
+import model.Roleschool;
 
 /**
  *
@@ -18,10 +18,10 @@ public interface facadeInterface {
     
     public String getPersonsAsJson(long id); 
     
-    public PersonEntity addPersonFromGson(String json);
+    public Person addPersonFromGson(String json);
     
-    public RoleSchool addRoleFromGson(String json); 
+    public Roleschool addRoleFromGson(String json); 
     
-    public PersonEntity delete(long id); 
+    public Person delete(long id); 
     
 }

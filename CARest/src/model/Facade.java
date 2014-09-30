@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 import Interfaces.facadeInterface;
@@ -12,7 +11,7 @@ import Interfaces.facadeInterface;
  *
  * @author Mads
  */
-public class Facade implements facadeInterface{
+public class Facade implements facadeInterface {
 
     @Override
     public String getPersonsAsJSON() {
@@ -25,18 +24,18 @@ public class Facade implements facadeInterface{
     }
 
     @Override
-    public PersonEntity addPersonFromGson(String json) {
+    public Person addPersonFromGson(String json) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public RoleSchool addRoleFromGson(String json) {
+    public Roleschool addRoleFromGson(String json) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public PersonEntity delete(long id) {
+    public Person delete(long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
