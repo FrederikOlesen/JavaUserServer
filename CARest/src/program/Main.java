@@ -24,10 +24,10 @@ public class Main {
 
         em.getTransaction().begin();
 
-        PersonEntity p = new PersonEntity("Test", "Test1", "12345678", "Test@dinmor.dk");
-        
+        PersonEntity p = new PersonEntity("Michael Sucks", "Hej", "12345678", "Test@dinmor.dk");
+
         em.persist(p);
-        
+
         em.getTransaction().commit();
 
     }
