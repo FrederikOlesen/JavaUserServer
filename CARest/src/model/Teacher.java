@@ -10,7 +10,17 @@ import javax.persistence.Entity;
 @Entity
 public class Teacher extends RoleSchool {
 
+    private String degree;
+
     public Teacher() {
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
     }
 
 }
