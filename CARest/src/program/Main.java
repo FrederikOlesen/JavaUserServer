@@ -28,7 +28,7 @@ public class Main {
 
         //Person p = new Person("Frederik", "Olesen", "12345678", "Frederik.o@mailme.dk");
         //Person p1 = new Person("Michael", "Sutter", "12345678", "Michael@sutter.dk");
-        Person p2 = new Person("Test", "Test123", "1234", "Asdsad@asd.com");
+        Person p2 = new Person("Test123", "Test123", "1234", "Asdsad@asd.com");
                 
         //Roleschool role = new Teacher("Dickface");
         //Roleschool rol1 = new Student("3. semester");
