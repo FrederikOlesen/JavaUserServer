@@ -3,12 +3,15 @@
   <persistence-unit name="CARestPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>model.PersonEntity</class>
+    <class>model.AssistentTeacher</class>
+    <class>model.RoleSchool</class>
+    <class>model.Student</class>
+    <class>model.Teacher</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@datdb.cphbusiness.dk:1521:dat"/>
       <property name="javax.persistence.jdbc.user" value="SEM2_TEST_GR11"/>
       <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
       <property name="javax.persistence.jdbc.password" value="SEM2_TEST_GR11"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

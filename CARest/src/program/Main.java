@@ -24,7 +24,7 @@ public class Main {
 
         em.getTransaction().begin();
 
-        PersonEntity p = new PersonEntity("test Sucks", "He123123123j", "12345678", "Test@dinmor.dk");
+        PersonEntity p = new PersonEntity("test Sucks balls og det samme gør dit face", "He123123123j", "12345678", "Test@dinmor.dk");
 
         em.persist(p);
 
