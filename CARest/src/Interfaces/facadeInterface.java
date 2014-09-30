@@ -14,14 +14,14 @@ import model.Roleschool;
  */
 public interface facadeInterface {
 
-    public String getPersonsAsJSON(); 
-    
-    public String getPersonsAsJson(long id); 
-    
+    public String getPersonsAsJSON();
+
+    public String getPersonsAsJson(long id);
+
     public Person addPersonFromGson(String json);
-    
-    public Roleschool addRoleFromGson(String json); 
-    
-    public Person delete(long id); 
-    
+
+    public Roleschool addRoleFromGson(String json);
+
+    public Person delete(long id);
+
 }

@@ -32,10 +32,10 @@ public class ProgramTest {
 
     @Test
     public void addPersonTest() {
-        Person p = new Person("Frederik", "Olesen", "53288942", "Frederik.o@mailme.dk");
-        em.persist(p);
+        Person p2 = new Person("Test", "Test123", "1234", "Asdsad@asd.com");
+        em.persist(p2);
 
-        final Person find = em.find(Person.class, 200000);
+        final Person find = em.find(Person.class, 6);
 
         System.out.println("Find: " + find);
     }

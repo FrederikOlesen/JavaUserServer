@@ -11,7 +11,6 @@ import javax.persistence.Persistence;
 import model.Person;
 import model.Roleschool;
 import model.Student;
-import model.Teacher;
 
 /**
  *
@@ -27,13 +26,18 @@ public class Main {
 
         em.getTransaction().begin();
 
-        Person p = new Person("Frederik", "Olesen", "12345678", "Frederik.o@mailme.dk");
+        //Person p = new Person("Frederik", "Olesen", "12345678", "Frederik.o@mailme.dk");
+        //Person p1 = new Person("Michael", "Sutter", "12345678", "Michael@sutter.dk");
+        Person p2 = new Person("Test", "Test123", "1234", "Asdsad@asd.com");
+                
         //Roleschool role = new Teacher("Dickface");
-        Roleschool rol1 = new Student("3. semester");
+        //Roleschool rol1 = new Student("3. semester");
 
-        em.persist(p);
+//        em.persist(p);
+//        em.persist(p1);
+        em.persist(p2);
         //em.persist(role);
-        em.persist(rol1);
+        //em.persist(rol1);
 
         em.getTransaction().commit();
 
