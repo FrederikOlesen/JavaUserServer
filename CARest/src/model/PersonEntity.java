@@ -27,9 +27,18 @@ public class PersonEntity implements Serializable {
     @SequenceGenerator(name = "s1", sequenceName = "PersonID_SEQ",
             initialValue = 1, allocationSize = 1)
     private Long id;
-
     @OneToMany(mappedBy = "person")
     private Collection<RoleSchool> roles;
+
+    public Collection<RoleSchool> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<RoleSchool> roles) {
+        this.roles = roles;
+    }
+    
+    
     
     private String firstName;
     private String lastName;
