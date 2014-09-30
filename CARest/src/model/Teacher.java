@@ -5,14 +5,27 @@
  */
 package model;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 
+/**
+ *
+ * @author Frederik
+ */
 @Entity
-public class Teacher extends RoleSchool {
+public class Teacher extends Roleschool implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String degree;
 
     public Teacher() {
+        super.setRoleName("Teacher");
+    }
+
+    public Teacher(String degree) {
+        super.setRoleName("Teacher");
+        this.degree = degree;
     }
 
     public String getDegree() {

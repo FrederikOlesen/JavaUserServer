@@ -6,7 +6,7 @@
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import model.PersonEntity;
+import model.Person;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.Before;
@@ -32,11 +32,11 @@ public class ProgramTest {
 
     @Test
     public void addPersonTest() {
-        PersonEntity p = new PersonEntity("Frederik", "Olesen", "53288942", "Frederik.o@mailme.dk");
+        Person p = new Person("Frederik", "Olesen", "53288942", "Frederik.o@mailme.dk");
         em.persist(p);
 
-        final PersonEntity find = em.find(PersonEntity.class, 200000);
-        
+        final Person find = em.find(Person.class, 200000);
+
         System.out.println("Find: " + find);
     }
 

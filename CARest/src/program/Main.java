@@ -8,7 +8,10 @@ package program;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import model.PersonEntity;
+import model.Person;
+import model.Roleschool;
+import model.Student;
+import model.Teacher;
 
 /**
  *
@@ -24,9 +27,13 @@ public class Main {
 
         em.getTransaction().begin();
 
-        PersonEntity p = new PersonEntity("test Sucks balasdsadsadsadls og det samme gør dit face", "He123123123j", "12345678", "Test@dinmor.dk");
+        Person p = new Person("Frederik", "Olesen", "12345678", "Frederik.o@mailme.dk");
+        //Roleschool role = new Teacher("Dickface");
+        Roleschool rol1 = new Student("3. semester");
 
         em.persist(p);
+        //em.persist(role);
+        em.persist(rol1);
 
         em.getTransaction().commit();
 
