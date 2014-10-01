@@ -6,7 +6,6 @@
 package facades;
 
 import com.google.gson.Gson;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,7 +76,7 @@ public class Facade implements facadeInterface {
 
     @Override
     public Roleschool addRoleFromGson(String json, long id) {
-       Roleschool role = null;
+        Roleschool role = null;
         if (json.contains("Teacher")) {
             role = gson.fromJson(json, Teacher.class);
         }
@@ -92,11 +91,11 @@ public class Facade implements facadeInterface {
         Person person = em.find(Person.class, id);
         if (person != null && role != null) {
             person.setRoles(role);
-            //== Maybe use persist, or merge
         }
         em.getTransaction().commit();
 
         return role;
+
     }
 
     @Override

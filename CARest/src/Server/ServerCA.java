@@ -23,6 +23,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import model.Person;
+import model.Roleschool;
 
 /**
  *
@@ -121,6 +122,27 @@ public class ServerCA {
                     }
                     break;
                 case "PUT":
+                    try {
+                        InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
+                        BufferedReader br = new BufferedReader(isr);
+                        String jsonQuery = br.readLine();
+                        String path = he.getRequestURI().getPath();
+                        int lastIndex = path.lastIndexOf("/");
+                        if (lastIndex > 0) {  //person/id
+                            String idStr = path.substring(lastIndex + 1);
+                            Long id = Long.valueOf(idStr);
+                            System.out.println("ID: " + id);
+                            Roleschool pAddRole = facade.addRoleFromGson(jsonQuery, id);
+                            response = new Gson().toJson(pAddRole);
+                        }
+
+                    } catch (IllegalArgumentException iae) {
+                        status = 400;
+                        response = iae.getMessage();
+                    } catch (IOException e) {
+                        status = 500;
+                        response = "Internal Server Problem";
+                    }
                     break;
                 case "DELETE":
                     try {
