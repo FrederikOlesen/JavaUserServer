@@ -5,12 +5,12 @@
  */
 package program;
 
+import facades.Facade;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import model.Person;
-import model.Roleschool;
-import model.Student;
+import com.google.gson.Gson;
 
 /**
  *
@@ -19,28 +19,18 @@ import model.Student;
 public class Main {
 
     public static void main(String[] args) {
-
+        Gson gson = new Gson();
+        Facade facade = new Facade();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARestPU");
 
         EntityManager em = emf.createEntityManager();
 
         em.getTransaction().begin();
 
-        //Person p = new Person("Frederik", "Olesen", "12345678", "Frederik.o@mailme.dk");
-        //Person p1 = new Person("Michael", "Sutter", "12345678", "Michael@sutter.dk");
-        Person p2 = new Person("Test123", "Test123", "1234", "Asdsad@asd.com");
-                
-        //Roleschool role = new Teacher("Dickface");
-        //Roleschool rol1 = new Student("3. semester");
+        Person p = facade.addPersonFromGson(gson.toJson(new Person("Mads1", "Sutter", "Teeeeest123", "1231231231212312321")));
 
-//        em.persist(p);
-//        em.persist(p1);
-        em.persist(p2);
-        //em.persist(role);
-        //em.persist(rol1);
-
+        em.persist(p);
         em.getTransaction().commit();
 
     }
-
 }

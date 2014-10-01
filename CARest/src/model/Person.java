@@ -101,4 +101,10 @@ public class Person implements Serializable {
         this.phone = phone;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" + "firstName=" + firstName + ", lastName=" + lastName + ", mail=" + mail + ", phone=" + phone + '}';
+    }
+    
+
 }

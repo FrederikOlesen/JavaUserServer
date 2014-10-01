@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interfaces;
+package facades;
 
 import model.Person;
 import model.Roleschool;
@@ -16,7 +16,7 @@ public interface facadeInterface {
 
     public String getPersonsAsJSON();
 
-    public String getPersonsAsJson(long id);
+    public String getPersonAsJson(long id);
 
     public Person addPersonFromGson(String json);
 

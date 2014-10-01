@@ -20,7 +20,7 @@ import javax.persistence.InheritanceType;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Roleschool implements Serializable {
+public class Roleschool implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
