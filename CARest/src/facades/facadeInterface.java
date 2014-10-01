@@ -20,7 +20,7 @@ public interface facadeInterface {
 
     public Person addPersonFromGson(String json);
 
-    public Roleschool addRoleFromGson(String json);
+    public Roleschool addRoleFromGson(String json, long id);
 
     public Person delete(long id);
 

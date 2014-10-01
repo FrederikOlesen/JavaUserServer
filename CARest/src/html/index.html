@@ -9,8 +9,34 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="javascript.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
     </head>
     <body>
         <div>TODO write content</div>
-    </body>
-</html>
+        <p>Persons:
+        <form method="get" action="/person">
+            <input type="submit" value="Show all Persons"><br>
+        </form>
+
+        <form>
+            <br />
+            <input type="text" id="fname" placeholder="Enter your first name" />
+            <br />
+            <input type="text" id="lname" placeholder="Enter your last name" />
+            <br />
+            <input type="text" id="mail" placeholder="Enter your mail">
+            <br />
+            <input type="text" id="phone" placeholder="Enter your phone">
+            <input type="text" id="role" placeholder="Enter your role">
+
+            <button type="button" onclick="addPerson()">Create a new Person</button>
+        </form>
+
+        <div id="personTable></div>
+
+
+
+             </body>
+             </html>

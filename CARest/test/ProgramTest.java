@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.Before;
 import com.google.gson.Gson;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
@@ -54,11 +55,20 @@ public class ProgramTest {
         String actual = facade.getPersonAsJson(person.getId());
 
         assertEquals(expectedJsonString, actual);
+
     }
 
     @Test
     public void testGetPerson() throws Exception {
         testAddPerson();
+    }
+
+    @Test
+    public void getPersonsAsJSON() {
+        List<Person> poo;
+        poo = em.createQuery("SELECT p FROM PERSON p").getResultList();
+        System.out.println(poo.get(1));
+        
     }
 
     @Test

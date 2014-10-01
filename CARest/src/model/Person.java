@@ -81,8 +81,8 @@ public class Person implements Serializable {
         return roles;
     }
 
-    public void setRoles(Collection<Roleschool> roles) {
-        this.roles = roles;
+    public void setRoles(Roleschool role) {
+        roles.add(role); 
     }
 
     public String getMail() {

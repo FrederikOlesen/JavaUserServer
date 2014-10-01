@@ -32,7 +32,7 @@ public class ServerCA {
 
     static int port = 8080;
     static String ip = "127.0.0.1";
-    static String publicFolder = "src/htmlFiles/";
+    static String publicFolder = "src/html/";
     static String startFile = "index.html";
     static String filesUri = "/pages";
     private static final boolean DEVELOPMENT_MODE = true;
@@ -103,8 +103,10 @@ public class ServerCA {
                             //Simple anti-Martin check :-)
                             throw new IllegalArgumentException("Illegal characters in input");
                         }
-
+                        em.getTransaction().begin();
                         Person p = facade.addPersonFromGson(jsonQuery);
+                        em.persist(p);
+                        em.getTransaction().commit();
                         if (p.getPhone().length() > 20 || p.getFirstName().length() > 20 || p.getLastName().length() > 20) {
                             //Simple anti-Martin check :-)
                             throw new IllegalArgumentException("Input contains to many characters");
@@ -126,7 +128,10 @@ public class ServerCA {
                         int lastIndex = path.lastIndexOf("/");
                         if (lastIndex > 0) {  //person/id
                             int id = Integer.parseInt(path.substring(lastIndex + 1));
+                            em.getTransaction().begin();
                             Person pDeleted = facade.delete(id);
+                            em.remove(pDeleted);
+                            em.getTransaction().commit();
                             response = new Gson().toJson(pDeleted);
                         } else {
                             status = 400;
