@@ -74,6 +74,7 @@ public class ProgramTest {
         test.put(person2.getId(), person2);
         String expected = gson.toJson(test.values());
         String result = facade.getPersonsAsJSON();
+        System.out.println("Result: " + result);
         assertEquals(expected, result);
     }
 
