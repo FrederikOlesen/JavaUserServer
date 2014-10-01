@@ -64,7 +64,9 @@ public class Facade implements facadeInterface {
 
     @Override
     public Roleschool addRoleFromGson(String json) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    Roleschool role = gson.fromJson(json, Roleschool.class);
+        role.setRoleName(json);
+        return role;
     }
 
     @Override
