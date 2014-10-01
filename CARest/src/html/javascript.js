@@ -18,24 +18,21 @@ function addPerson() {
 function deletePerson() {
     var ID = $("#id1").val();
 
-    console.log("Id: " + ID);
-
     $.ajax({
         url: "http://127.0.0.1:8080/person/" + ID,
         type: "DELETE"
     })
-    
-    
+
 }
 
-function addRolePerson(){
+function addRolePerson() {
     var ID = $("#id1").val();
-    
+
     var role = "Student";
-    
+
     $.ajax({
-       url:"http://127.0.0.1:8080/person"+ID,
-       type:"PUT",
-       data: role
+        url: "http://127.0.0.1:8080/person",
+        type: "PUT",
+        data: {role: role, id: ID}
     })
 }

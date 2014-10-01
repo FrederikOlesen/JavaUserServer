@@ -123,17 +123,17 @@ public class ServerCA {
                     break;
                 case "PUT":
                     try {
+                        System.out.println("PUT");
                         InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
                         BufferedReader br = new BufferedReader(isr);
                         String jsonQuery = br.readLine();
                         String path = he.getRequestURI().getPath();
-                        int lastIndex = path.lastIndexOf("/");
-                        if (lastIndex > 0) {  //person/id
-                            String idStr = path.substring(lastIndex + 1);
-                            Long id = Long.valueOf(idStr);
-                            System.out.println("ID: " + id);
-                            Roleschool pAddRole = facade.addRoleFromGson(jsonQuery, id);
-                            response = new Gson().toJson(pAddRole);
+                        if (jsonQuery.contains("<") || jsonQuery.contains(">")) {  //person/id
+//                            
+//                            Long id = Long.valueOf(idStr);
+//                            System.out.println("ID: " + id);
+//                            Roleschool pAddRole = facade.addRoleFromGson(jsonQuery, id);
+//                            response = new Gson().toJson(pAddRole);
                         }
 
                     } catch (IllegalArgumentException iae) {
