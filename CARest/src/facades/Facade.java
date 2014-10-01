@@ -101,10 +101,10 @@ public class Facade implements facadeInterface {
 
     @Override
     public Person delete(long id) {
-        Person p = persons.remove(id);
-        if (p == null) {
-            System.out.println("Person not found. Cant delete him");
-        }
+        em.getTransaction().begin();
+        Person p = em.find(Person.class, id);
+        em.remove(p);
+        em.getTransaction().commit();
         return p;
     }
 

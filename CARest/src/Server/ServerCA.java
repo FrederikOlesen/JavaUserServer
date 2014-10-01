@@ -127,11 +127,11 @@ public class ServerCA {
                         String path = he.getRequestURI().getPath();
                         int lastIndex = path.lastIndexOf("/");
                         if (lastIndex > 0) {  //person/id
-                            int id = Integer.parseInt(path.substring(lastIndex + 1));
-                            em.getTransaction().begin();
+                            String idStr = path.substring(lastIndex + 1);
+                            Long id = Long.valueOf(idStr);
+                            System.out.println("ID: " + id);
                             Person pDeleted = facade.delete(id);
-                            em.remove(pDeleted);
-                            em.getTransaction().commit();
+
                             response = new Gson().toJson(pDeleted);
                         } else {
                             status = 400;
