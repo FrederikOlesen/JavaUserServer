@@ -84,7 +84,7 @@ public class ServerCA {
                         int lastIndex = path.lastIndexOf("/");
                         if (lastIndex > 0) {  //person/id
                             String idStr = path.substring(lastIndex + 1);
-                            int id = Integer.parseInt(idStr);
+                            Long id = Long.valueOf(idStr);
                             response = facade.getPersonAsJson(id);
                         } else { // person
                             response = facade.getPersonsAsJSON();
@@ -124,11 +124,12 @@ public class ServerCA {
                     break;
                 case "PUT":
                     try {
-                        System.out.println("Put");
+
                         InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
+
                         BufferedReader br = new BufferedReader(isr);
                         String jsonText = br.readLine();
-                        System.out.println("jsonText" + jsonText);
+
                         String path = he.getRequestURI().getPath();
                         int lastIndex = path.lastIndexOf("/");
 
@@ -140,7 +141,6 @@ public class ServerCA {
                             response = new Gson().toJson(pAddRole);
                         }
 
-//                        String path = he.getRequestURI().getPath();
                     } catch (IllegalArgumentException iae) {
                         status = 400;
                         response = iae.getMessage();
@@ -156,7 +156,7 @@ public class ServerCA {
                         if (lastIndex > 0) {  //person/id
                             String idStr = path.substring(lastIndex + 1);
                             Long id = Long.valueOf(idStr);
-                            System.out.println("ID: " + id);
+
                             Person pDeleted = facade.delete(id);
 
                             response = new Gson().toJson(pDeleted);

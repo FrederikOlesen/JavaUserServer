@@ -27,7 +27,6 @@ public class Main {
         em.getTransaction().begin();
 
         //Person p = facade.addPersonFromGson(gson.toJson(new Person("Mads1", "Sutter", "Teeeeest123", "1231231231212312321")));
-
         //em.persist(p);
         em.getTransaction().commit();
 

@@ -39,10 +39,11 @@ function addRoletoPerson() {
     } else if (roleName.toLowerCase() === "teacher") {
         dataString += "{degree: uddannet, roleName: Teacher}";
     }
-        $.ajax({
-            url: "http://127.0.0.1:8080/person/" + personId,
-            type: "PUT",
-            data: dataString
-        })
-    
+    $.ajax({
+        url: "http://127.0.0.1:8080/person/" + personId,
+        type: "PUT",
+        data: dataString
+
+    })
+
 }
