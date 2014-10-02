@@ -74,6 +74,7 @@ public class Facade implements facadeInterface {
             roles = gson.fromJson(json, Teacher.class);
         }
         if (json.contains("role=Student")) {
+            System.out.println("Test Facade");
             roles = gson.fromJson(json, Student.class);
         }
         if (json.contains("role=assistentTeacher")) {
