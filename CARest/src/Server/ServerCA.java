@@ -96,6 +96,7 @@ public class ServerCA {
                     break;
                 case "POST":
                     try {
+                        System.out.println("Hej");
                         InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
                         BufferedReader br = new BufferedReader(isr);
                         String jsonQuery = br.readLine();
@@ -105,6 +106,7 @@ public class ServerCA {
                         }
                         em.getTransaction().begin();
                         Person p = facade.addPersonFromGson(jsonQuery);
+                        System.out.println("Perso: " + p);
                         em.persist(p);
                         em.getTransaction().commit();
                         if (p.getPhone().length() > 20 || p.getFirstName().length() > 20 || p.getLastName().length() > 20) {

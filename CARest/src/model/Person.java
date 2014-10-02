@@ -49,12 +49,11 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String mail, String phone, Roleschool role) {
+    public Person(String firstName, String lastName, String mail, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
         this.phone = phone;
-        setRoles(role);
 
     }
 

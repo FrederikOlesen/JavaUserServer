@@ -6,9 +6,6 @@
 package facades;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,29 +67,6 @@ public class Facade implements facadeInterface {
         return p;
     }
 
-//    @Override
-//    public Roleschool addRoleFromGson(String json, long id) {
-//        Person p = em.find(Person.class, id);
-//        System.out.println("Person: " + p);
-//        Roleschool r = null;
-//        JsonElement jelement = new JsonParser().parse(json);
-//        JsonObject jobject = jelement.getAsJsonObject();
-//        String roleName = jobject.get("roleName").getAsString();
-//        System.out.println("RoleName" + roleName);
-//
-//        if (json.contains("Student")) {
-//            r = new Student("3. semester");
-//            p.setRoles(r);
-//            System.out.println("Person: " + p);
-//
-//        }
-//
-//        em.getTransaction().begin();
-//        em.merge(r);
-//        em.getTransaction().commit();
-//
-//        return r;
-//    }
     @Override
     public Roleschool addRoleFromGson(String json, long id) {
 
