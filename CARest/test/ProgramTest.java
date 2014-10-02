@@ -12,6 +12,7 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.Before;
 import com.google.gson.Gson;
+import javax.persistence.Query;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -37,33 +38,42 @@ public class ProgramTest {
 
 //    @Test
 //    public void addPersonTest() {
-//        Person p2 = new Person("Test", "Test123", "1234", "Asdsad@asd.com");
-//        em.persist(p2);
+//        Person p = new Person("Frederik", "Olesen", "Frederik.o@mailme.dk", "12344321");
+//        facade.addPersonFromGson(gson.toJson(p));
+//        
+//        System.out.println("Person: " + p);
 //
-//        final Person find = em.find(Person.class, 6);
-//
-//        System.out.println("Find: " + find);
+//        final String personsAsJSON = facade.getPersonsAsJSON();
+//        
+//        System.out.println("PersonasJSon" + personsAsJSON);
+//        
+//        
+//  
 //    }
-    @Test
-    public void testAddPerson() {
-        Person person = facade.addPersonFromGson(gson.toJson(new Person("Frederik", "Olesen", "12345678", "12321@sad.com")));
-
-        String expectedJsonString = gson.toJson(person);
-        String actual = facade.getPersonAsJson(person.getId());
-
-        assertEquals(expectedJsonString, actual);
-
-    }
+//    @Test
+//    public void testAddPerson() {
+//        Person person = facade.addPersonFromGson(gson.toJson(new Person("Frederik", "Olesen", "12345678", "12321@sad.com")));
+//
+//        String expectedJsonString = gson.toJson(person);
+//        String actual = facade.getPersonAsJson(person.getId());
+//
+//        assertEquals(expectedJsonString, actual);
+//
+//    }
 
 //    @Test
 //    public void testGetPerson() throws Exception {
-//        testAddPerson();
+//        Long lo = Long.parseLong("8");
+//        final String personAsJson = facade.getPersonAsJson(lo);
+//        System.out.println("personAsJson" + personAsJson);
+//        
+//        Query query = em.createQuery("SELECT p from PERSON p");
 //    }
 //
 //    @Test
 //    public void getPersonsAsJSON() {
 //        List<Person> poo;
-//        poo = em.createQuery("SELECT p FROM PERSON p").getResultList();
+//        poo = em.createQuery("SELECT p FROM PERSON p WHERE p.").getResultList();
 //        System.out.println(poo.get(1));
 //
 //    }
@@ -84,13 +94,13 @@ public class ProgramTest {
 //        assertEquals(expected, result);
 //    }
 //
-//    @Test
-//    public void testDeletePerson() {
-//        Person person = facade.addPersonFromGson(gson.toJson(new Person("Test", "Test", "Asdas@2sad.com", "1234321")));
-//        facade.delete(person.getId());
-//        facade.getPersonAsJson(person.getId());
-//
-//    }
+    @Test
+    public void testDeletePerson() {
+        Person person = facade.addPersonFromGson(gson.toJson(new Person("Test", "Test", "Asdas@2sad.com", "1234321")));
+        facade.delete(person.getId());
+        facade.getPersonAsJson(person.getId());
+
+    }
     @After
     public void after() {
         em.getTransaction().rollback();
