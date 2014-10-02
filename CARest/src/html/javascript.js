@@ -31,8 +31,30 @@ function addRolePerson() {
     var roleName = "Student";
 
     $.ajax({
-        url: "http://127.0.0.1:8080/person/"+ID,
+        url: "http://127.0.0.1:8080/person/" + ID,
         type: "PUT",
         data: roleName
+    })
+}
+
+function addRole() {
+
+    var roleName = $("#role").val();
+    var personId = $("#id1").val();
+    var data = "";
+
+    if (roleName.toLowerCase() === "student") {
+        data += "{semester: 3semester, roleName: Student}";
+    } else if (roleName.toLowerCase() === "teacher") {
+        data += "{degree: uddannet, roleName: Teacher}";
+    } else if (roleName.toLowerCase() === "assistantteacher") {
+        data += "{degree: uddannet, roleName: Assistantteacher}";
+    }
+
+    $.ajax({
+        url: "http://127.0.0.1:8080/person/" + personId,
+        type: "PUT",
+        dataType: "json",
+        data: data
     })
 }

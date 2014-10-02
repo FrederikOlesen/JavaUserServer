@@ -6,7 +6,7 @@
     <class>model.Roleschool</class>
     <class>model.Teacher</class>
     <class>model.Student</class>
-    <class>model.AssistentTeacher</class>
+    <class>model.Assistantteacher</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@datdb.cphbusiness.dk:1521:dat"/>
       <property name="javax.persistence.jdbc.user" value="SEM2_TEST_GR11"/>

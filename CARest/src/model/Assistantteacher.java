@@ -13,12 +13,22 @@ import javax.persistence.Entity;
  * @author Frederik
  */
 @Entity
-public class AssistentTeacher extends Roleschool implements Serializable {
+public class Assistantteacher extends Roleschool implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public AssistentTeacher() {
+    private String degree;
 
+    public Assistantteacher() {
+
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
     }
 
 }

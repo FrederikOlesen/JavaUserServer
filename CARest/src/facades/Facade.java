@@ -16,9 +16,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import model.Assistantteacher;
 import model.Person;
 import model.Roleschool;
 import model.Student;
+import model.Teacher;
 
 /**
  *
@@ -68,28 +70,51 @@ public class Facade implements facadeInterface {
         return p;
     }
 
+//    @Override
+//    public Roleschool addRoleFromGson(String json, long id) {
+//        Person p = em.find(Person.class, id);
+//        System.out.println("Person: " + p);
+//        Roleschool r = null;
+//        JsonElement jelement = new JsonParser().parse(json);
+//        JsonObject jobject = jelement.getAsJsonObject();
+//        String roleName = jobject.get("roleName").getAsString();
+//        System.out.println("RoleName" + roleName);
+//
+//        if (json.contains("Student")) {
+//            r = new Student("3. semester");
+//            p.setRoles(r);
+//            System.out.println("Person: " + p);
+//
+//        }
+//
+//        em.getTransaction().begin();
+//        em.merge(r);
+//        em.getTransaction().commit();
+//
+//        return r;
+//    }
     @Override
     public Roleschool addRoleFromGson(String json, long id) {
-        Person p = em.find(Person.class, id);
-        System.out.println("Person: " + p);
-        Roleschool r = null;
-        JsonElement jelement = new JsonParser().parse(json);
-        JsonObject jobject = jelement.getAsJsonObject();
-        String roleName = jobject.get("roleName").getAsString();
-        System.out.println("RoleName" + roleName);
 
+        Roleschool role = null;
+        if (json.contains("Teacher")) {
+            role = gson.fromJson(json, Teacher.class);
+        }
         if (json.contains("Student")) {
-            r = new Student("3. semester");
-            p.setRoles(r);
-            System.out.println("Person: " + p);
-
+            role = gson.fromJson(json, Student.class);
+        }
+        if (json.contains("Assistantteacher")) {
+            role = gson.fromJson(json, Assistantteacher.class);
         }
 
         em.getTransaction().begin();
-        em.merge(r);
+        Person person = em.find(Person.class, id);
+        if (person != null && role != null) {
+            person.setRoles(role);
+        }
         em.getTransaction().commit();
 
-        return r;
+        return role;
     }
 
     @Override

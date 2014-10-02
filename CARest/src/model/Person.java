@@ -108,7 +108,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Person{" + "firstName=" + firstName + ", lastName=" + lastName + ", role=" + roles + ", mail=" + mail + ", phone=" + phone + '}';
+        return "Person{" + "firstName=" + firstName + ", lastName=" + lastName + ", mail=" + mail + ", phone=" + phone + '}';
     }
 
 }

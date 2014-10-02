@@ -122,28 +122,19 @@ public class ServerCA {
                     break;
                 case "PUT":
                     try {
-                        System.out.println("PUT");
+                        System.out.println("Put");
+                        InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
+                        BufferedReader br = new BufferedReader(isr);
+                        String jsonText = br.readLine();
+                        System.out.println("jsonText" + jsonText);
                         String path = he.getRequestURI().getPath();
                         int lastIndex = path.lastIndexOf("/");
+
                         if (lastIndex > 0) {  //person/id
-                            System.out.println("ID test");
-                            String idStr = path.substring(lastIndex + 1);
-                            int id = Integer.parseInt(idStr);
-                            System.out.println("ID: " + id);
-                            String original = facade.getPersonAsJson(id);
 
-                            InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
-                            BufferedReader br = new BufferedReader(isr);
+                            Long id = Long.parseLong(path.substring(lastIndex + 1));
+                            Roleschool pAddRole = facade.addRoleFromGson(jsonText, id);
 
-                            String newPerson = br.readLine();
-
-                            System.out.println("newPerson: " + newPerson);
-
-//                            CharSequence oldID = original.subSequence(0, 11);
-//                            CharSequence newValue = newPerson.subSequence(1, newPerson.length());
-//
-//                            String change = "" + oldID + newValue;
-                            Roleschool pAddRole = facade.addRoleFromGson(newPerson, id);
                             response = new Gson().toJson(pAddRole);
                         }
 
