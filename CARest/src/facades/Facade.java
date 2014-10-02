@@ -6,6 +6,9 @@
 package facades;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +16,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import model.AssistentTeacher;
 import model.Person;
 import model.Roleschool;
 import model.Student;
-import model.Teacher;
 
 /**
  *
@@ -69,26 +70,26 @@ public class Facade implements facadeInterface {
 
     @Override
     public Roleschool addRoleFromGson(String json, long id) {
-        Roleschool roles = null;
-        if (json.contains("role=teacher")) {
-            roles = gson.fromJson(json, Teacher.class);
-        }
-        if (json.contains("role=Student")) {
-            System.out.println("Test Facade");
-            roles = gson.fromJson(json, Student.class);
-        }
-        if (json.contains("role=assistentTeacher")) {
-            roles = gson.fromJson(json, AssistentTeacher.class);
+        Person p = em.find(Person.class, id);
+        System.out.println("Person: " + p);
+        Roleschool r = null;
+        JsonElement jelement = new JsonParser().parse(json);
+        JsonObject jobject = jelement.getAsJsonObject();
+        String roleName = jobject.get("roleName").getAsString();
+        System.out.println("RoleName" + roleName);
+
+        if (json.contains("Student")) {
+            r = new Student("3. semester");
+            p.setRoles(r);
+            System.out.println("Person: " + p);
+
         }
 
         em.getTransaction().begin();
-        Person person = em.find(Person.class, id);
-        p.setRoles(roles);
-        em.persist(p);
+        em.merge(r);
         em.getTransaction().commit();
 
-        return roles;
-
+        return r;
     }
 
     @Override

@@ -14,11 +14,11 @@ import javax.persistence.Entity;
  */
 @Entity
 public class AssistentTeacher extends Roleschool implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     public AssistentTeacher() {
-        super.setRoleName("Assistent teacher");
+
     }
-    
+
 }

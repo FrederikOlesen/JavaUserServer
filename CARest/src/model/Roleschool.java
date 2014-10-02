@@ -13,27 +13,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  *
  * @author Frederik
  */
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "ROLESCHOOl")
 public class Roleschool implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roleID")
-    @SequenceGenerator(name = "roleID", sequenceName = "ROLE_SEQ", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "ROLE_NAME")
     private String roleName;
 
+    private Person person;
+
     public Roleschool() {
+        roleName = this.getClass().getSimpleName();
     }
 
     public Long getId() {

@@ -6,13 +6,14 @@
 package model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
@@ -37,7 +38,8 @@ public class Person implements Serializable {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn
     private Collection<Roleschool> roles;
 
     private String mail;
@@ -47,11 +49,12 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String mail, String phone) {
+    public Person(String firstName, String lastName, String mail, String phone, Roleschool role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
         this.phone = phone;
+        setRoles(role);
 
     }
 
@@ -105,7 +108,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Person{" + "firstName=" + firstName + ", lastName=" + lastName + ", mail=" + mail + ", phone=" + phone + '}';
+        return "Person{" + "firstName=" + firstName + ", lastName=" + lastName + ", role=" + roles + ", mail=" + mail + ", phone=" + phone + '}';
     }
 
 }

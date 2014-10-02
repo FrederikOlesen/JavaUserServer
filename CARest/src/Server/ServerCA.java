@@ -123,29 +123,31 @@ public class ServerCA {
                 case "PUT":
                     try {
                         System.out.println("PUT");
-                        InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
-                        BufferedReader br = new BufferedReader(isr);
-                        String jsonQuery = br.readLine();
-                        String[] splitjsonQuery = jsonQuery.split("&");
-                        String jsonText = splitjsonQuery[0];
-                        System.out.println("jsonText" + jsonText);
-                        String jsonID = splitjsonQuery[1];
+                        String path = he.getRequestURI().getPath();
+                        int lastIndex = path.lastIndexOf("/");
+                        if (lastIndex > 0) {  //person/id
+                            System.out.println("ID test");
+                            String idStr = path.substring(lastIndex + 1);
+                            int id = Integer.parseInt(idStr);
+                            System.out.println("ID: " + id);
+                            String original = facade.getPersonAsJson(id);
 
-                        String[] fixedIDString = jsonID.split("=");
-                        String idString = fixedIDString[1];
-                        Long id = Long.parseLong(idString);
+                            InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
+                            BufferedReader br = new BufferedReader(isr);
 
-                        System.out.println("ID: " + id);
-                        Roleschool pAddRole = facade.addRoleFromGson(jsonText, id);
-                        response = new Gson().toJson(pAddRole);
+                            String newPerson = br.readLine();
+
+                            System.out.println("newPerson: " + newPerson);
+
+//                            CharSequence oldID = original.subSequence(0, 11);
+//                            CharSequence newValue = newPerson.subSequence(1, newPerson.length());
+//
+//                            String change = "" + oldID + newValue;
+                            Roleschool pAddRole = facade.addRoleFromGson(newPerson, id);
+                            response = new Gson().toJson(pAddRole);
+                        }
 
 //                        String path = he.getRequestURI().getPath();
-//                        if (jsonText.contains("<") || jsonQuery.contains(">")) {  //person/id
-//
-//                            System.out.println("ID: " + id);
-//                            Roleschool pAddRole = facade.addRoleFromGson(jsonText, id);
-//                            response = new Gson().toJson(pAddRole);
-//                        }
                     } catch (IllegalArgumentException iae) {
                         status = 400;
                         response = iae.getMessage();

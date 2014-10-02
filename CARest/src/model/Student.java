@@ -7,9 +7,6 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
  *
@@ -19,18 +16,14 @@ import javax.persistence.Id;
 public class Student extends Roleschool implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
     private String semester;
 
     public Student() {
-        super.setRoleName("Student");
+
     }
 
     public Student(String semester) {
-        super.setRoleName("Student");
         this.semester = semester;
     }
 

@@ -20,11 +20,11 @@ public class Teacher extends Roleschool implements Serializable {
     private String degree;
 
     public Teacher() {
-        super.setRoleName("Teacher");
+
     }
 
     public Teacher(String degree) {
-        super.setRoleName("Teacher");
+
         this.degree = degree;
     }
 
