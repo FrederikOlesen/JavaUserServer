@@ -9,7 +9,6 @@ import facades.Facade;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import model.Person;
 import com.google.gson.Gson;
 
 /**
@@ -27,9 +26,9 @@ public class Main {
 
         em.getTransaction().begin();
 
-        Person p = facade.addPersonFromGson(gson.toJson(new Person("Mads1", "Sutter", "Teeeeest123", "1231231231212312321")));
+        //Person p = facade.addPersonFromGson(gson.toJson(new Person("Mads1", "Sutter", "Teeeeest123", "1231231231212312321")));
 
-        em.persist(p);
+        //em.persist(p);
         em.getTransaction().commit();
 
     }

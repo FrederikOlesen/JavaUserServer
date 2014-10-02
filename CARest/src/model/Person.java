@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,6 +52,7 @@ public class Person implements Serializable {
         this.lastName = lastName;
         this.mail = mail;
         this.phone = phone;
+
     }
 
     public Long getId() {
@@ -82,7 +84,7 @@ public class Person implements Serializable {
     }
 
     public void setRoles(Roleschool role) {
-        roles.add(role); 
+        roles.add(role);
     }
 
     public String getMail() {

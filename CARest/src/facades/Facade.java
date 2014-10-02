@@ -51,13 +51,6 @@ public class Facade implements facadeInterface {
         return gson.toJson(result);
     }
 
-    public void createTestData() {
-
-        addPersonFromGson(gson.toJson(new Person("Frederik", "Olesen", "12345678", "Json test")));
-        addPersonFromGson(gson.toJson(new Person("Michael", "Sutter", "12345678", "Json test")));
-        addPersonFromGson(gson.toJson(new Person("Mads", "Sutter mere", "12345678", "Json test")));
-    }
-
     @Override
     public String getPersonAsJson(long id) {
         Query query = em.createQuery("SELECT p FROM Person p WHERE p.id = ?1").setParameter(1, id);
@@ -76,25 +69,24 @@ public class Facade implements facadeInterface {
 
     @Override
     public Roleschool addRoleFromGson(String json, long id) {
-        Roleschool role = null;
-        if (json.contains("Teacher")) {
-            role = gson.fromJson(json, Teacher.class);
+        Roleschool roles = null;
+        if (json.contains("role=teacher")) {
+            roles = gson.fromJson(json, Teacher.class);
         }
-        if (json.contains("Student")) {
-            role = gson.fromJson(json, Student.class);
+        if (json.contains("role=Student")) {
+            roles = gson.fromJson(json, Student.class);
         }
-        if (json.contains("AssistentTeacher")) {
-            role = gson.fromJson(json, AssistentTeacher.class);
+        if (json.contains("role=assistentTeacher")) {
+            roles = gson.fromJson(json, AssistentTeacher.class);
         }
 
         em.getTransaction().begin();
         Person person = em.find(Person.class, id);
-        if (person != null && role != null) {
-            person.setRoles(role);
-        }
+        p.setRoles(roles);
+        em.persist(p);
         em.getTransaction().commit();
 
-        return role;
+        return roles;
 
     }
 

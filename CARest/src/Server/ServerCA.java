@@ -59,6 +59,7 @@ public class ServerCA {
             port = Integer.parseInt(args[0]);
             ip = args[1];
             publicFolder = args[2];
+
         }
         new ServerCA().run();
     }
@@ -69,9 +70,7 @@ public class ServerCA {
 
         public HandlerPerson() {
             facade = Facade.getFacade(false);
-            if (DEVELOPMENT_MODE) {
-                facade.createTestData();
-            }
+
         }
 
         public void handle(HttpExchange he) throws IOException {
@@ -127,15 +126,26 @@ public class ServerCA {
                         InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
                         BufferedReader br = new BufferedReader(isr);
                         String jsonQuery = br.readLine();
-                        String path = he.getRequestURI().getPath();
-                        if (jsonQuery.contains("<") || jsonQuery.contains(">")) {  //person/id
-//                            
-//                            Long id = Long.valueOf(idStr);
-//                            System.out.println("ID: " + id);
-//                            Roleschool pAddRole = facade.addRoleFromGson(jsonQuery, id);
-//                            response = new Gson().toJson(pAddRole);
-                        }
+                        String[] splitjsonQuery = jsonQuery.split("&");
+                        String jsonText = splitjsonQuery[0];
+                        System.out.println("jsonText" + jsonText);
+                        String jsonID = splitjsonQuery[1];
 
+                        String[] fixedIDString = jsonID.split("=");
+                        String idString = fixedIDString[1];
+                        Long id = Long.parseLong(idString);
+
+                        System.out.println("ID: " + id);
+                        Roleschool pAddRole = facade.addRoleFromGson(jsonText, id);
+                        response = new Gson().toJson(pAddRole);
+
+//                        String path = he.getRequestURI().getPath();
+//                        if (jsonText.contains("<") || jsonQuery.contains(">")) {  //person/id
+//
+//                            System.out.println("ID: " + id);
+//                            Roleschool pAddRole = facade.addRoleFromGson(jsonText, id);
+//                            response = new Gson().toJson(pAddRole);
+//                        }
                     } catch (IllegalArgumentException iae) {
                         status = 400;
                         response = iae.getMessage();

@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
@@ -25,7 +26,8 @@ public class Roleschool implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roleID")
+    @SequenceGenerator(name = "roleID", sequenceName = "ROLE_SEQ", initialValue = 1, allocationSize = 1)
     private Long id;
 
     @Column(name = "ROLE_NAME")

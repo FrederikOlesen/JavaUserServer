@@ -26,11 +26,11 @@ public class Student extends Roleschool implements Serializable {
     private String semester;
 
     public Student() {
-        super.setRoleName("student");
+        super.setRoleName("Student");
     }
 
     public Student(String semester) {
-        super.setRoleName("student");
+        super.setRoleName("Student");
         this.semester = semester;
     }
 
