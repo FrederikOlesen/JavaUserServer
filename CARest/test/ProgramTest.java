@@ -12,8 +12,7 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.Before;
 import com.google.gson.Gson;
-import javax.persistence.Query;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -36,71 +35,38 @@ public class ProgramTest {
         em.getTransaction().begin();
     }
 
-//    @Test
-//    public void addPersonTest() {
-//        Person p = new Person("Frederik", "Olesen", "Frederik.o@mailme.dk", "12344321");
-//        facade.addPersonFromGson(gson.toJson(p));
-//        
-//        System.out.println("Person: " + p);
-//
-//        final String personsAsJSON = facade.getPersonsAsJSON();
-//        
-//        System.out.println("PersonasJSon" + personsAsJSON);
-//        
-//        
-//  
-//    }
-//    @Test
-//    public void testAddPerson() {
-//        Person person = facade.addPersonFromGson(gson.toJson(new Person("Frederik", "Olesen", "12345678", "12321@sad.com")));
-//
-//        String expectedJsonString = gson.toJson(person);
-//        String actual = facade.getPersonAsJson(person.getId());
-//
-//        assertEquals(expectedJsonString, actual);
-//
-//    }
-
-//    @Test
-//    public void testGetPerson() throws Exception {
-//        Long lo = Long.parseLong("8");
-//        final String personAsJson = facade.getPersonAsJson(lo);
-//        System.out.println("personAsJson" + personAsJson);
-//        
-//        Query query = em.createQuery("SELECT p from PERSON p");
-//    }
-//
-//    @Test
-//    public void getPersonsAsJSON() {
-//        List<Person> poo;
-//        poo = em.createQuery("SELECT p FROM PERSON p WHERE p.").getResultList();
-//        System.out.println(poo.get(1));
-//
-//    }
-//    @Test
-//    public void testGetPersons() {
-//        Person p = new Person("Frederik", "Olesen", "ASda@“asd.com", "12345678");
-//        Person person1 = facade.addPersonFromGson(gson.toJson(p));
-//        Person p2 = new Person("Mads", "Sutter", "ASda@“asd.com", "12345678");
-//        Person person2 = facade.addPersonFromGson(gson.toJson(p2));
-//
-//        //Make the Expected String
-//        Map<Long, Person> test = new HashMap();
-//        test.put(person1.getId(), person1);
-//        test.put(person2.getId(), person2);
-//        String expected = gson.toJson(test.values());
-//        String result = facade.getPersonsAsJSON();
-//        System.out.println("Result: " + result);
-//        assertEquals(expected, result);
-//    }
-//
     @Test
-    public void testDeletePerson() {
-        Person person = facade.addPersonFromGson(gson.toJson(new Person("Test", "Test", "Asdas@2sad.com", "1234321")));
-        facade.delete(person.getId());
-        facade.getPersonAsJson(person.getId());
+    public void addPersonTest() {
+        Person p = new Person("Frederik", "Olesen", "12344321", "Testmailen@testeren.dk");
+        facade.addPersonFromGson(gson.toJson(p));
+
+        final String personsAsJSON = facade.getPersonsAsJSON();
+
+        assertEquals(true, personsAsJSON.contains("Testmailen@testeren.dk"));
 
     }
+
+    @Test
+    public void testGetPerson() throws Exception {
+        Long lo = Long.parseLong("16");
+        final String personAsJson = facade.getPersonAsJson(lo);
+
+        assertEquals(true, personAsJson.contains("16"));
+    }
+//
+
+    @Test
+    public void getPersonsAsJSON() {
+
+        Person p = new Person("Frederik", "Olesen", "12344321", "Testmailen@testeren.dk");
+        facade.addPersonFromGson(gson.toJson(p));
+
+        final String personsAsJSON = facade.getPersonsAsJSON();
+
+        assertEquals(true, personsAsJSON.contains("Frederik"));
+
+    }
+
     @After
     public void after() {
         em.getTransaction().rollback();
