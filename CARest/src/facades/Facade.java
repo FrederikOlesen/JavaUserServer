@@ -45,7 +45,6 @@ public class Facade implements facadeInterface {
     @Override
     public String getPersonsAsJSON() {
         List<Person> result = em.createQuery("SELECT p FROM Person p").getResultList();
-        System.err.println("Number of persons: " + result.size());
         return gson.toJson(result);
     }
 
