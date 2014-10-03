@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import model.Person;
-import org.junit.After;
 import org.junit.Test;
 import org.junit.Before;
 import com.google.gson.Gson;
@@ -32,7 +31,6 @@ public class ProgramTest {
     @Before
     public void before() {
         facade = Facade.getFacade(true);
-        em.getTransaction().begin();
     }
 
     @Test
@@ -53,7 +51,6 @@ public class ProgramTest {
 
         assertEquals(true, personAsJson.contains("16"));
     }
-//
 
     @Test
     public void getPersonsAsJSON() {
@@ -65,11 +62,6 @@ public class ProgramTest {
 
         assertEquals(true, personsAsJSON.contains("Frederik"));
 
-    }
-
-    @After
-    public void after() {
-        em.getTransaction().rollback();
     }
 
 }
