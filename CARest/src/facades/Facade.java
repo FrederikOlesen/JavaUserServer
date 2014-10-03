@@ -26,10 +26,8 @@ import model.Teacher;
 public class Facade implements facadeInterface {
 
     Map<Long, Person> persons = new HashMap();
-    List<Person> poo;
     private final Gson gson = new Gson();
     private static Facade instance = new Facade();
-    private Long nextId;
     Person p = new Person();
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARestPU");
     EntityManager em = emf.createEntityManager();
@@ -60,11 +58,12 @@ public class Facade implements facadeInterface {
 
     @Override
     public Person addPersonFromGson(String json) {
+        em.getTransaction().begin();
         Person p = gson.fromJson(json, Person.class);
-//        Long test = Long.valueOf(1);
-//        p.setId(test);
-//        persons.put(test, p);
+        em.persist(p);
+        em.getTransaction().commit();
         return p;
+
     }
 
     @Override
