@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package facades;
 
 import com.google.gson.Gson;
@@ -19,10 +14,6 @@ import model.Roleschool;
 import model.Student;
 import model.Teacher;
 
-/**
- *
- * @author Mads
- */
 public class Facade implements facadeInterface {
 
     Map<Long, Person> persons = new HashMap();
@@ -62,12 +53,10 @@ public class Facade implements facadeInterface {
         em.persist(p);
         em.getTransaction().commit();
         return p;
-
     }
 
     @Override
     public Roleschool addRoleFromGson(String json, long id) {
-
         Roleschool role = null;
         if (json.contains("Teacher")) {
             role = gson.fromJson(json, Teacher.class);
@@ -97,5 +86,4 @@ public class Facade implements facadeInterface {
         em.getTransaction().commit();
         return p;
     }
-
 }

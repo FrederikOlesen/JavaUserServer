@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import facades.Facade;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,10 +8,6 @@ import org.junit.Before;
 import com.google.gson.Gson;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author frederikolesen
- */
 public class ProgramTest {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARestPU");
