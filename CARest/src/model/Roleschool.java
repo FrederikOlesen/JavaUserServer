@@ -33,8 +33,6 @@ public class Roleschool implements Serializable {
     @Column(name = "ROLE_NAME")
     private String roleName;
 
-    private Person person;
-
     public Roleschool() {
         roleName = this.getClass().getSimpleName();
     }

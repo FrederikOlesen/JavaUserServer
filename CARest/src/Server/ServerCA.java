@@ -36,7 +36,6 @@ public class ServerCA {
     static String publicFolder = "src/html/";
     static String startFile = "index.html";
     static String filesUri = "/pages";
-    private static final boolean DEVELOPMENT_MODE = true;
     Facade facade = new Facade();
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARestPU");
 
@@ -73,6 +72,7 @@ public class ServerCA {
 
         }
 
+        @Override
         public void handle(HttpExchange he) throws IOException {
             String response = "";
             int status = 200;
@@ -96,7 +96,6 @@ public class ServerCA {
                     break;
                 case "POST":
                     try {
-                        System.out.println("Hej");
                         InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
                         BufferedReader br = new BufferedReader(isr);
                         String jsonQuery = br.readLine();
@@ -104,11 +103,7 @@ public class ServerCA {
                             //Simple anti-Martin check :-)
                             throw new IllegalArgumentException("Illegal characters in input");
                         }
-                        em.getTransaction().begin();
                         Person p = facade.addPersonFromGson(jsonQuery);
-                        System.out.println("Perso: " + p);
-                        em.persist(p);
-                        em.getTransaction().commit();
                         if (p.getPhone().length() > 20 || p.getFirstName().length() > 20 || p.getLastName().length() > 20) {
                             //Simple anti-Martin check :-)
                             throw new IllegalArgumentException("Input contains to many characters");
@@ -182,7 +177,7 @@ public class ServerCA {
 
         @Override
         public void handle(HttpExchange he) throws IOException {
-            int responseCode = 500;
+            int responseCode;
             //Set initial error values if an un expected problem occurs
             String errorMsg = null;
             byte[] bytesToSend = "<h1>Internal Error </h1><p>We are sorry. The server encountered an unexpected problem</p>".getBytes();
@@ -199,7 +194,7 @@ public class ServerCA {
                 BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
                 bis.read(bytesToSend, 0, bytesToSend.length);
                 responseCode = 200;
-            } catch (Exception e) {
+            } catch (IOException e) {
                 responseCode = 404;
                 errorMsg = "<h1>404 Not Found</h1>No context found for request";
             }
