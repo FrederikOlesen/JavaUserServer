@@ -22,14 +22,16 @@ import model.Roleschool;
 
 public class ServerCA {
 
+    //Initialized information for the server.
     static int port = 8080;
     static String ip = "127.0.0.1";
     static String publicFolder = "src/html/";
     static String startFile = "index.html";
     static String filesUri = "/pages";
     Facade facade = new Facade();
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARestPU");
 
+    //Created the entitymanager, which is used to communicate with the database.
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARestPU");
     EntityManager em = emf.createEntityManager();
 
     public void run() throws IOException {
@@ -69,6 +71,7 @@ public class ServerCA {
             int status = 200;
             String method = he.getRequestMethod().toUpperCase();
             switch (method) {
+                //Used to get existing data. 
                 case "GET":
                     try {
                         String path = he.getRequestURI().getPath();
@@ -85,6 +88,8 @@ public class ServerCA {
                         status = 404;
                     }
                     break;
+
+                //Used to post new data.
                 case "POST":
                     try {
                         InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
@@ -108,6 +113,7 @@ public class ServerCA {
                         response = "Internal Server Problem";
                     }
                     break;
+                //Used to put role on existing person.     
                 case "PUT":
                     try {
 
@@ -135,6 +141,7 @@ public class ServerCA {
                         response = "Internal Server Problem";
                     }
                     break;
+                //Used to delete a person based on ID.     
                 case "DELETE":
                     try {
                         String path = he.getRequestURI().getPath();

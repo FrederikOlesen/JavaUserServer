@@ -20,6 +20,7 @@ public class Facade implements facadeInterface {
     private final Gson gson = new Gson();
     private static Facade instance = new Facade();
     Person p = new Person();
+
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARestPU");
     EntityManager em = emf.createEntityManager();
 
@@ -33,12 +34,14 @@ public class Facade implements facadeInterface {
     public Facade() {
     }
 
+    //Method to retrieve all persons.
     @Override
     public String getPersonsAsJSON() {
         List<Person> result = em.createQuery("SELECT p FROM Person p").getResultList();
         return gson.toJson(result);
     }
 
+    //Method to retrieve person based upon an ID.
     @Override
     public String getPersonAsJson(long id) {
         Query query = em.createQuery("SELECT p FROM Person p WHERE p.id = ?1").setParameter(1, id);
@@ -46,6 +49,7 @@ public class Facade implements facadeInterface {
         return gson.toJson(person);
     }
 
+    //Adds a new person to the database.
     @Override
     public Person addPersonFromGson(String json) {
         em.getTransaction().begin();
@@ -55,6 +59,7 @@ public class Facade implements facadeInterface {
         return p;
     }
 
+    //Add a role to an existing person found in the database using the id.
     @Override
     public Roleschool addRoleFromGson(String json, long id) {
         Roleschool role = null;
@@ -78,6 +83,7 @@ public class Facade implements facadeInterface {
         return role;
     }
 
+    //Delete a person.
     @Override
     public Person delete(long id) {
         em.getTransaction().begin();

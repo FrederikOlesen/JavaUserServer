@@ -5,7 +5,7 @@
  */
 
 function addPerson() {
-
+    //Method to add a new person. Is used on the "Add new Person" button in the index.html.
     var newPerson = "{ firstName: " + $("#fname").val() + ", lastName: " + $("#lname").val() +
             ", mail: " + $("#mail").val() + ", phone: " + $("#phone").val() + "}";
     $.ajax({

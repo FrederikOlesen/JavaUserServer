@@ -18,6 +18,7 @@ public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //Generating a unique ID using a sequence, which is supported by oracle.
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personID")
     @SequenceGenerator(name = "personID", sequenceName = "PERSON_SEQ", initialValue = 1, allocationSize = 1)
