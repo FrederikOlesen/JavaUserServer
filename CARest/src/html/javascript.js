@@ -24,6 +24,8 @@ function deletePerson() {
     })
 
 }
+
+
 function addRoletoPerson() {
 
     var dataString = "";
@@ -47,3 +49,20 @@ function addRoletoPerson() {
     })
 
 }
+
+function fetchAll() {
+        $.ajax({
+          url: "../person",
+          type: "GET",
+          dataType: 'json',
+          error: function(jqXHR, textStatus, errorThrown) {
+            alert(textStatus);
+          }
+        }).done(function(persons) {
+          var options = "";
+          persons.forEach(function(person) {
+            options += "<option id=" + person.id + ">" + person.firstName + ", " + person.lastName + ", " + person.mail + ", " + person.phone + "</option>";
+          });
+          $("#persons").html(options);
+        });
+      }
