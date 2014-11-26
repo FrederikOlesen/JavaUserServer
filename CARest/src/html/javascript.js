@@ -30,20 +30,12 @@ function addRoletoPerson() {
 
     var dataString = "";
 
-    var roleName = $("#role").val();
-    var personId = $("#pID").val();
+    var personUsername = $("#role").val();
+    var personPassword = $("#pID").val();
 
-
-    if (roleName.toLowerCase() === "student") {
-        dataString += "{semester: 3semester, roleName: Student}";
-    } else if (roleName.toLowerCase() === "assistantteacher") {
-        dataString += "{degree: uddannet, roleName: Assistantteacher}";
-    } else if (roleName.toLowerCase() === "teacher") {
-        dataString += "{degree: uddannet, roleName: Teacher}";
-    }
     $.ajax({
-        url: "http://127.0.0.1:8080/person/" + personId,
-        type: "PUT",
+        url: "http://127.0.0.1:8080/login/" + personUsername + "&" + personPassword,
+        type: "GET",
         data: dataString
 
     })
@@ -51,18 +43,18 @@ function addRoletoPerson() {
 }
 
 function fetchAll() {
-        $.ajax({
-          url: "../person",
-          type: "GET",
-          dataType: 'json',
-          error: function(jqXHR, textStatus, errorThrown) {
+    $.ajax({
+        url: "../person",
+        type: "GET",
+        dataType: 'json',
+        error: function (jqXHR, textStatus, errorThrown) {
             alert(textStatus);
-          }
-        }).done(function(persons) {
-          var options = "";
-          persons.forEach(function(person) {
+        }
+    }).done(function (persons) {
+        var options = "";
+        persons.forEach(function (person) {
             options += "<option id=" + person.id + ">" + person.firstName + ", " + person.lastName + ", " + person.mail + ", " + person.phone + "</option>";
-          });
-          $("#persons").html(options);
         });
-      }
+        $("#persons").html(options);
+    });
+}
