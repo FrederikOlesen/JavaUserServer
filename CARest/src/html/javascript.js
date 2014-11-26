@@ -35,7 +35,7 @@ function addRoletoPerson() {
 
 
     $.ajax({
-        url: "http://127.0.0.1:8080/login/" + userName + "&" + password,
+        url: "http://127.0.0.1:8080/login/" + userName,
         type: "GET",
         data: dataString
 

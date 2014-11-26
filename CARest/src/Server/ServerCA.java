@@ -75,12 +75,9 @@ public class ServerCA {
 
                         String path = he.getRequestURI().getPath();
                         String lastIndexUserName = path.substring(7);
-                        String[] stringDone = lastIndexUserName.split("&");
+                        String username = lastIndexUserName;
 
-                        String username = stringDone[0];
-                        String password = stringDone[1];
-
-                        if (stringDone.length != 0) {  //person/id
+                        if (!username.isEmpty()) {  //person/id
                             System.out.println("Inde i IF");
                             response = facade.getPersonAsJson(username);
                         } else { // person
