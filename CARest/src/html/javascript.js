@@ -30,11 +30,12 @@ function addRoletoPerson() {
 
     var dataString = "";
 
-    var personUsername = $("#role").val();
-    var personPassword = $("#pID").val();
+    var userName = $("#role").val();
+    var password = $("#pID").val();
+
 
     $.ajax({
-        url: "http://127.0.0.1:8080/login/" + personUsername + "&" + personPassword,
+        url: "http://127.0.0.1:8080/login/" + userName + "&" + password,
         type: "GET",
         data: dataString
 

@@ -1,5 +1,6 @@
 package Server;
 
+import com.google.gson.Gson;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -14,6 +15,7 @@ import java.net.InetSocketAddress;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import model.Person;
 
 public class ServerCA {
 
@@ -32,8 +34,10 @@ public class ServerCA {
     public void run() throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(ip, port), 0);
         //REST Routes
-        server.createContext("/person", new HandlerPerson());
+        server.createContext("/login", new HandlerPerson());
         //HTTP Server Routes
+        server.createContext(filesUri, new HandlerFileServer());
+
         server.start();
         System.out.println("Server started, listening on port: " + port);
 
@@ -64,20 +68,49 @@ public class ServerCA {
             int status = 200;
             String method = he.getRequestMethod().toUpperCase();
             switch (method) {
+
                 //Used to get existing data. 
                 case "GET":
-                    System.out.println("HEJ DU KOMMER IND I GET");
                     try {
+
                         String path = he.getRequestURI().getPath();
+                        System.out.println("Path:" + path);
+                        System.out.println("Test");
                         String lastIndexUserName = path.substring(21);
+                        System.out.println("LastIndexUserName" + lastIndexUserName);
                         String[] stringDone = lastIndexUserName.split("&");
+                        System.out.println("Stringdone" + stringDone[0]);
                         String username = stringDone[0];
                         String password = stringDone[1];
+                        System.out.println("Username:" + username);
+                        System.out.println("Password:" + password);
                         if (stringDone.length != 0) {  //person/id
 
                             response = facade.getPersonAsJson(username, password);
                         } else { // person
                             System.out.println("Error");
+                        }
+                    } catch (NumberFormatException nfe) {
+                        response = "Id is not a number";
+                        status = 404;
+                    }
+                    break;
+
+                //Used to delete a person based on ID.     
+                case "DELETE":
+                    try {
+                        String path = he.getRequestURI().getPath();
+                        int lastIndex = path.lastIndexOf("/");
+                        if (lastIndex > 0) {  //person/id
+                            String idStr = path.substring(lastIndex + 1);
+                            Long id = Long.valueOf(idStr);
+
+                            Person pDeleted = facade.delete(id);
+
+                            response = new Gson().toJson(pDeleted);
+                        } else {
+                            status = 400;
+                            response = "<h1>Bad Request</h1>No id supplied with request";
                         }
                     } catch (NumberFormatException nfe) {
                         response = "Id is not a number";
