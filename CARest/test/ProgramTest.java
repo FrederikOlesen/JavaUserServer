@@ -29,7 +29,9 @@ public class ProgramTest {
     public void testGetPerson() throws Exception {
         //Parsing 16 to a long, as getPersonAsJson is taking in a long id.
         Long lo = Long.parseLong("16");
-        final String personAsJson = facade.getPersonAsJson(lo);
+        String username = "";
+        String password = "";
+        final String personAsJson = facade.getPersonAsJson(username, password);
 
         //Checking if there is a Person with the ID on 16.
         assertEquals(true, personAsJson.contains("16"));

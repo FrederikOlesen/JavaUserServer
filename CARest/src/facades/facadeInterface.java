@@ -2,6 +2,6 @@ package facades;
 
 public interface facadeInterface {
 
-    public String getPersonAsJson(long id);
+    public String getPersonAsJson(String username, String password);
 
 }

@@ -1,15 +1,11 @@
 package Server;
 
 import com.google.gson.Gson;
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import facades.Facade;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -18,7 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import model.Person;
-import model.Roleschool;
 
 public class ServerCA {
 
@@ -73,87 +68,15 @@ public class ServerCA {
                 case "GET":
                     try {
                         String path = he.getRequestURI().getPath();
-                        int lastIndex = path.lastIndexOf("/");
-                        if (lastIndex > 0) {  //person/id
-                            String idStr = path.substring(lastIndex + 1);
-                            Long id = Long.valueOf(idStr);
-                            response = facade.getPersonAsJson(id);
+                        String lastIndexUserName = path.substring(21);
+                        String[] stringDone = lastIndexUserName.split("&");
+                        String username = stringDone[0];
+                        String password = stringDone[1];
+                        if (stringDone.length != 0) {  //person/id
+
+                            response = facade.getPersonAsJson(username, password);
                         } else { // person
-                            response = facade.getPersonsAsJSON();
-                        }
-                    } catch (NumberFormatException nfe) {
-                        response = "Id is not a number";
-                        status = 404;
-                    }
-                    break;
-
-                //Used to post new data.
-                case "POST":
-                    try {
-                        InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
-                        BufferedReader br = new BufferedReader(isr);
-                        String jsonQuery = br.readLine();
-                        if (jsonQuery.contains("<") || jsonQuery.contains(">")) {
-                            //Simple anti-Martin check :-)
-                            throw new IllegalArgumentException("Illegal characters in input");
-                        }
-                        Person p = facade.addPersonFromGson(jsonQuery);
-                        if (p.getPhone().length() > 20 || p.getFirstName().length() > 20 || p.getLastName().length() > 20) {
-                            //Simple anti-Martin check :-)
-                            throw new IllegalArgumentException("Input contains to many characters");
-                        }
-                        response = new Gson().toJson(p);
-                    } catch (IllegalArgumentException iae) {
-                        status = 400;
-                        response = iae.getMessage();
-                    } catch (IOException e) {
-                        status = 500;
-                        response = "Internal Server Problem";
-                    }
-                    break;
-                //Used to put role on existing person.     
-                case "PUT":
-                    try {
-
-                        InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
-
-                        BufferedReader br = new BufferedReader(isr);
-                        String jsonText = br.readLine();
-
-                        String path = he.getRequestURI().getPath();
-                        int lastIndex = path.lastIndexOf("/");
-
-                        if (lastIndex > 0) {  //person/id
-
-                            Long id = Long.parseLong(path.substring(lastIndex + 1));
-                            Roleschool pAddRole = facade.addRoleFromGson(jsonText, id);
-
-                            response = new Gson().toJson(pAddRole);
-                        }
-
-                    } catch (IllegalArgumentException iae) {
-                        status = 400;
-                        response = iae.getMessage();
-                    } catch (IOException e) {
-                        status = 500;
-                        response = "Internal Server Problem";
-                    }
-                    break;
-                //Used to delete a person based on ID.     
-                case "DELETE":
-                    try {
-                        String path = he.getRequestURI().getPath();
-                        int lastIndex = path.lastIndexOf("/");
-                        if (lastIndex > 0) {  //person/id
-                            String idStr = path.substring(lastIndex + 1);
-                            Long id = Long.valueOf(idStr);
-
-                            Person pDeleted = facade.delete(id);
-
-                            response = new Gson().toJson(pDeleted);
-                        } else {
-                            status = 400;
-                            response = "<h1>Bad Request</h1>No id supplied with request";
+                            System.out.println("Error");
                         }
                     } catch (NumberFormatException nfe) {
                         response = "Id is not a number";
