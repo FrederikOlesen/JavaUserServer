@@ -41,7 +41,9 @@ public class Facade implements facadeInterface {
     //Method to retrieve person based upon an ID.
     @Override
     public String getPersonAsJson(String username, String password) {
-        Query query = em.createQuery("SELECT p FROM Credentials p WHERE p.userName = ?1 AND p.password =?2").setParameter(1, username).setParameter(2, password);
+        System.out.println("Inside getPersonAsJson");
+        Query query = em.createQuery("SELECT p FROM Credentials WHERE p.userName = ?1 AND p.password =?2").setParameter(1, username).setParameter(2, password);
+        System.out.println("After query");
         Person person = (Person) query.getSingleResult();
         return gson.toJson(person);
     }

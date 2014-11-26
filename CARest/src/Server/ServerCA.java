@@ -74,18 +74,14 @@ public class ServerCA {
                     try {
 
                         String path = he.getRequestURI().getPath();
-                        System.out.println("Path:" + path);
-                        System.out.println("Test");
-                        String lastIndexUserName = path.substring(21);
-                        System.out.println("LastIndexUserName" + lastIndexUserName);
+                        String lastIndexUserName = path.substring(7);
                         String[] stringDone = lastIndexUserName.split("&");
-                        System.out.println("Stringdone" + stringDone[0]);
+                       
                         String username = stringDone[0];
                         String password = stringDone[1];
-                        System.out.println("Username:" + username);
-                        System.out.println("Password:" + password);
-                        if (stringDone.length != 0) {  //person/id
 
+                        if (stringDone.length != 0) {  //person/id
+                            System.out.println("Inde i IF");
                             response = facade.getPersonAsJson(username, password);
                         } else { // person
                             System.out.println("Error");
