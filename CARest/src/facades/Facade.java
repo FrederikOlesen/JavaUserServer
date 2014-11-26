@@ -9,14 +9,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import model.Person;
+import model.PersonXxx;
 
 public class Facade implements facadeInterface {
 
-    Map<Long, Person> persons = new HashMap();
+    Map<Long, PersonXxx> persons = new HashMap();
     private final Gson gson = new Gson();
     private static Facade instance = new Facade();
-    Person p = new Person();
+    PersonXxx p = new PersonXxx();
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARestPU");
     EntityManager em = emf.createEntityManager();
@@ -34,7 +34,7 @@ public class Facade implements facadeInterface {
     //Method to retrieve all persons.
     @Override
     public String getPersonsAsJSON() {
-        List<Person> result = em.createQuery("SELECT p FROM Person p").getResultList();
+        List<PersonXxx> result = em.createQuery("SELECT p FROM Person p").getResultList();
         return gson.toJson(result);
     }
 
@@ -42,17 +42,18 @@ public class Facade implements facadeInterface {
     @Override
     public String getPersonAsJson(String username, String password) {
         System.out.println("Inside getPersonAsJson");
-        Query query = em.createQuery("SELECT p FROM Credentials WHERE p.userName = ?1 AND p.password =?2").setParameter(1, username).setParameter(2, password);
-        System.out.println("After query");
-        Person person = (Person) query.getSingleResult();
+        Query query = em.createQuery("SELECT p FROM Credentials p WHERE USERNAME = ?1 AND PASSWORD =?2").setParameter(1, username).setParameter(2, password);
+        System.out.println("After query" + query);
+        PersonXxx person = (PersonXxx) query.getSingleResult();
+        System.out.println("Person: " + person);
         return gson.toJson(person);
     }
 
     //Adds a new person to the database.
     @Override
-    public Person addPersonFromGson(String json) {
+    public PersonXxx addPersonFromGson(String json) {
         em.getTransaction().begin();
-        Person p = gson.fromJson(json, Person.class);
+        PersonXxx p = gson.fromJson(json, PersonXxx.class);
         em.persist(p);
         em.getTransaction().commit();
         return p;
@@ -60,9 +61,9 @@ public class Facade implements facadeInterface {
 
     //Delete a person.
     @Override
-    public Person delete(long id) {
+    public PersonXxx delete(long id) {
         em.getTransaction().begin();
-        Person p = em.find(Person.class, id);
+        PersonXxx p = em.find(PersonXxx.class, id);
         em.remove(p);
         em.getTransaction().commit();
         return p;

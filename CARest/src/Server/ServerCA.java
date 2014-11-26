@@ -15,7 +15,7 @@ import java.net.InetSocketAddress;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import model.Person;
+import model.PersonXxx;
 
 public class ServerCA {
 
@@ -101,7 +101,7 @@ public class ServerCA {
                             String idStr = path.substring(lastIndex + 1);
                             Long id = Long.valueOf(idStr);
 
-                            Person pDeleted = facade.delete(id);
+                            PersonXxx pDeleted = facade.delete(id);
 
                             response = new Gson().toJson(pDeleted);
                         } else {

@@ -1,6 +1,6 @@
 package facades;
 
-import model.Person;
+import model.PersonXxx;
 
 public interface facadeInterface {
 
@@ -8,8 +8,8 @@ public interface facadeInterface {
 
     public String getPersonAsJson(String username, String password);
 
-    public Person addPersonFromGson(String json);
+    public PersonXxx addPersonFromGson(String json);
 
-    public Person delete(long id);
+    public PersonXxx delete(long id);
 
 }

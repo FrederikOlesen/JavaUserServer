@@ -10,7 +10,7 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 
-public class Person implements Serializable {
+public class PersonXxx implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,10 +26,10 @@ public class Person implements Serializable {
     @Column(name = "PASSWORD")
     private String passWord;
 
-    public Person() {
+    public PersonXxx() {
     }
 
-    public Person(String userName, String passWord) {
+    public PersonXxx(String userName, String passWord) {
         this.userName = userName;
         this.passWord = passWord;
 

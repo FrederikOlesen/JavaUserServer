@@ -2,7 +2,7 @@ import facades.Facade;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import model.Person;
+import model.PersonXxx;
 import org.junit.Test;
 import org.junit.Before;
 import com.google.gson.Gson;
@@ -33,7 +33,7 @@ public class ProgramTest {
         String password = "";
         final String personAsJson = facade.getPersonAsJson(username, password);
 
-        //Checking if there is a Person with the ID on 16.
+        //Checking if there is a PersonXxx with the ID on 16.
         assertEquals(true, personAsJson.contains("16"));
     }
 
