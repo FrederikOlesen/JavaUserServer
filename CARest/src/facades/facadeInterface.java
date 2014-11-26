@@ -1,15 +1,15 @@
 package facades;
 
-import model.PersonXxx;
+import model.Credentials;
 
 public interface facadeInterface {
 
     public String getPersonsAsJSON();
 
-    public String getPersonAsJson(String username, String password);
+    public String getPersonAsJson(String username);
 
-    public PersonXxx addPersonFromGson(String json);
+    public Credentials addPersonFromGson(String json);
 
-    public PersonXxx delete(long id);
+    public Credentials delete(long id);
 
 }

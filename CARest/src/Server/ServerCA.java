@@ -15,7 +15,7 @@ import java.net.InetSocketAddress;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import model.PersonXxx;
+import model.Credentials;
 
 public class ServerCA {
 
@@ -28,7 +28,7 @@ public class ServerCA {
     Facade facade = new Facade();
 
     //Created the entitymanager, which is used to communicate with the database.
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARestPU");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARESTPU");
     EntityManager em = emf.createEntityManager();
 
     public void run() throws IOException {
@@ -76,13 +76,13 @@ public class ServerCA {
                         String path = he.getRequestURI().getPath();
                         String lastIndexUserName = path.substring(7);
                         String[] stringDone = lastIndexUserName.split("&");
-                       
+
                         String username = stringDone[0];
                         String password = stringDone[1];
 
                         if (stringDone.length != 0) {  //person/id
                             System.out.println("Inde i IF");
-                            response = facade.getPersonAsJson(username, password);
+                            response = facade.getPersonAsJson(username);
                         } else { // person
                             System.out.println("Error");
                         }
@@ -101,7 +101,7 @@ public class ServerCA {
                             String idStr = path.substring(lastIndex + 1);
                             Long id = Long.valueOf(idStr);
 
-                            PersonXxx pDeleted = facade.delete(id);
+                            Credentials pDeleted = facade.delete(id);
 
                             response = new Gson().toJson(pDeleted);
                         } else {
