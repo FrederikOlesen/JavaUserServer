@@ -39,8 +39,6 @@ public class ServerCA {
         //REST Routes
         server.createContext("/person", new HandlerPerson());
         //HTTP Server Routes
-        server.createContext(filesUri, new HandlerFileServer());
-
         server.start();
         System.out.println("Server started, listening on port: " + port);
 
