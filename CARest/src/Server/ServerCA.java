@@ -7,9 +7,11 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import facades.Facade;
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import javax.persistence.EntityManager;
@@ -78,7 +80,7 @@ public class ServerCA {
                         String username = lastIndexUserName;
 
                         if (!username.isEmpty()) {  //person/id
-                            System.out.println("Inde i IF");
+
                             response = facade.getPersonAsJson(username);
                         } else { // person
                             System.out.println("Error");
@@ -86,6 +88,27 @@ public class ServerCA {
                     } catch (NumberFormatException nfe) {
                         response = "Id is not a number";
                         status = 404;
+                    }
+                    break;
+
+                case "POST":
+                    try {
+                        InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
+                        BufferedReader br = new BufferedReader(isr);
+                        String jsonQuery = br.readLine();
+                        if (jsonQuery.contains("<") || jsonQuery.contains(">")) {
+                            //Simple anti-Martin check :-)
+                            throw new IllegalArgumentException("Illegal characters in input");
+                        }
+                        Credentials c = facade.addPersonFromGson(jsonQuery);
+
+                        response = new Gson().toJson(c);
+                    } catch (IllegalArgumentException iae) {
+                        status = 400;
+                        response = iae.getMessage();
+                    } catch (IOException e) {
+                        status = 500;
+                        response = "Internal Server Problem";
                     }
                     break;
 
