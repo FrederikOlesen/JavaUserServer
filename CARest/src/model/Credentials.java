@@ -86,7 +86,7 @@ public class Credentials implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Credentials[ username=" + username + "password" + password + " ]";
+        return "model.Credentials[ username=" + username + "&" + "password" + password + " ]";
     }
     
 }

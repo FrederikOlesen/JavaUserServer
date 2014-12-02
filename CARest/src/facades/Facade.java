@@ -1,6 +1,9 @@
 package facades;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.EntityManager;
@@ -37,12 +40,56 @@ public class Facade implements facadeInterface {
 
     //Adds a new person to the database.
     @Override
-    public Credentials addPersonFromGson(String json) {
-        em.getTransaction().begin();
-        Credentials p = gson.fromJson(json, Credentials.class);
-        em.persist(p);
-        em.getTransaction().commit();
-        return p;
+    public Credentials addPersonFromGson(String json) throws IOException {
+
+        JsonParser jp = new JsonParser();
+        JsonObject jo = (JsonObject) jp.parse(json);
+
+        String username = jo.get("username").getAsString();
+        String password = jo.get("password").getAsString();
+
+        System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
+
+        Credentials person = em.find(Credentials.class, username);
+        if (person == null) {
+            throw new IOException("User found with that username");
+        } else {
+            em.getTransaction().begin();
+            Credentials p = gson.fromJson(json, Credentials.class);
+            em.persist(p);
+            em.getTransaction().commit();
+            return p;
+        }
+
+    }
+
+    @Override
+    public Credentials changePassword(String json, String username) {
+
+        JsonParser jp = new JsonParser();
+        JsonObject jo = (JsonObject) jp.parse(json);
+
+        String password = jo.get("password").getAsString();
+        String newpass = jo.get("confirmedpassword").getAsString();
+
+        System.out.println("Password:" + password);
+
+        Credentials person = em.find(Credentials.class, username);
+
+        if (person == null) {
+            System.out.println("Error finding the person.");
+        } else {
+            em.getTransaction().begin();
+
+            if (person.getPassword().equals(password)) {
+                person.setPassword(newpass);
+                em.getTransaction().commit();
+            } else {
+                System.out.println("Password are not equal");
+            }
+        }
+        return person;
     }
 
     //Delete a person.

@@ -112,6 +112,36 @@ public class ServerCA {
                     }
                     break;
 
+                case "PUT":
+                    try {
+
+                        InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
+
+                        BufferedReader br = new BufferedReader(isr);
+                        String jsonText = br.readLine();
+
+                        String path = he.getRequestURI().getPath();
+                        String lastIndexUserName = path.substring(7);
+                        String username = lastIndexUserName;
+
+                        if (!username.isEmpty()) {  //person/id
+
+                            Credentials newPassword = facade.changePassword(jsonText, username);
+
+                            response = new Gson().toJson(newPassword);
+                        } else { // person
+                            System.out.println("Error");
+                        }
+
+                    } catch (IllegalArgumentException iae) {
+                        status = 400;
+                        response = iae.getMessage();
+                    } catch (IOException e) {
+                        status = 500;
+                        response = "Internal Server Problem";
+                    }
+                    break;
+
                 //Used to delete a person based on ID.     
                 case "DELETE":
                     try {
