@@ -3,7 +3,6 @@ package facades;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.EntityManager;
@@ -41,27 +40,13 @@ public class Facade implements facadeInterface {
 
     //Adds a new person to the database.
     @Override
-    public Credentials addPersonFromGson(String json) throws IOException {
+    public Credentials addPersonFromGson(String json) {
 
-        JsonParser jp = new JsonParser();
-        JsonObject jo = (JsonObject) jp.parse(json);
-
-        String username = jo.get("username").getAsString();
-        String password = jo.get("password").getAsString();
-
-        System.out.println("Username: " + username);
-        System.out.println("Password: " + password);
-
-        Credentials person = em.find(Credentials.class, username);
-        if (person == null) {
-            throw new IOException("User found with that username");
-        } else {
-            em.getTransaction().begin();
-            Credentials p = gson.fromJson(json, Credentials.class);
-            em.persist(p);
-            em.getTransaction().commit();
-            return p;
-        }
+        em.getTransaction().begin();
+        Credentials p = gson.fromJson(json, Credentials.class);
+        em.persist(p);
+        em.getTransaction().commit();
+        return p;
 
     }
 
@@ -95,9 +80,10 @@ public class Facade implements facadeInterface {
 
     //Delete a person.
     @Override
-    public Credentials delete(long id) {
+    public Credentials delete(String username) {
+        System.out.println("You are in DELETE");
         em.getTransaction().begin();
-        Credentials p = em.find(Credentials.class, id);
+        Credentials p = em.find(Credentials.class, username);
         em.remove(p);
         em.getTransaction().commit();
         return p;

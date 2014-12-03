@@ -146,18 +146,19 @@ public class ServerCA {
                 case "DELETE":
                     try {
                         String path = he.getRequestURI().getPath();
-                        int lastIndex = path.lastIndexOf("/");
-                        if (lastIndex > 0) {  //person/id
-                            String idStr = path.substring(lastIndex + 1);
-                            Long id = Long.valueOf(idStr);
+                        String lastIndexUserName = path.substring(7);
+                        String username = lastIndexUserName;
 
-                            Credentials pDeleted = facade.delete(id);
+                        if (!username.isEmpty()) {  //person/id
+
+                            Credentials pDeleted = facade.delete(username);
 
                             response = new Gson().toJson(pDeleted);
-                        } else {
+                        } else { // person
                             status = 400;
                             response = "<h1>Bad Request</h1>No id supplied with request";
                         }
+
                     } catch (NumberFormatException nfe) {
                         response = "Id is not a number";
                         status = 404;
