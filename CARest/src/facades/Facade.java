@@ -34,6 +34,7 @@ public class Facade implements facadeInterface {
     //Method to retrieve person based upon an ID.
     @Override
     public String getPersonAsJson(String username) {
+        System.out.println("You are inside getPerson");
         Credentials p = em.find(Credentials.class, username);
         return gson.toJson(p);
     }
