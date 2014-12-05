@@ -35,6 +35,7 @@ public class Facade implements facadeInterface {
     public String getPersonAsJson(String username) {
         System.out.println("You are inside getPerson");
         Credentials p = em.find(Credentials.class, username);
+        System.out.println("P: " + p);
         return gson.toJson(p);
     }
 
@@ -42,12 +43,13 @@ public class Facade implements facadeInterface {
     @Override
     public Credentials addPersonFromGson(String json) {
 
+        System.out.println("Json: " + json);
         em.getTransaction().begin();
-        Credentials p = gson.fromJson(json, Credentials.class);
+        p = gson.fromJson(json, Credentials.class);
         em.persist(p);
         em.getTransaction().commit();
-        return p;
 
+        return p;
     }
 
     @Override
@@ -81,11 +83,17 @@ public class Facade implements facadeInterface {
     //Delete a person.
     @Override
     public Credentials delete(String username) {
-        System.out.println("You are in DELETE");
-        em.getTransaction().begin();
-        Credentials p = em.find(Credentials.class, username);
-        em.remove(p);
-        em.getTransaction().commit();
+        Credentials person = em.find(Credentials.class, username);
+
+        if (person == null) {
+            System.out.println("Cant find person");
+        } else {
+            System.out.println("You are in DELETE");
+            em.getTransaction().begin();
+            Credentials p = em.find(Credentials.class, username);
+            em.remove(p);
+            em.getTransaction().commit();
+        }
         return p;
     }
 }

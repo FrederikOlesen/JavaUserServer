@@ -104,9 +104,11 @@ public class ServerCA {
 
                         response = new Gson().toJson(c);
                     } catch (IllegalArgumentException iae) {
+                        System.out.println("Inside IllegalArgumenException");
                         status = 400;
                         response = iae.getMessage();
                     } catch (IOException e) {
+                        System.out.println("Inside IOException");
                         status = 500;
                         response = "Internal Server Problem";
                     }
