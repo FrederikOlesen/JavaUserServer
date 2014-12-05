@@ -18,6 +18,7 @@ public class Facade implements facadeInterface {
     Credentials p = new Credentials();
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARESTPU");
+    EntityManager em = emf.createEntityManager();
 
     public static Facade getFacade(boolean reseet) {
         if (true) {
@@ -32,7 +33,7 @@ public class Facade implements facadeInterface {
     //Method to retrieve person based upon an ID.
     @Override
     public String getPersonAsJson(String username) {
-        EntityManager em = emf.createEntityManager();
+        
 
         System.out.println("You are inside getPerson");
         Credentials p = em.find(Credentials.class, username);
@@ -50,14 +51,14 @@ public class Facade implements facadeInterface {
         p = gson.fromJson(json, Credentials.class);
         em.persist(p);
         em.getTransaction().commit();
-        em.close();
+
 
         return p;
     }
 
     @Override
     public Credentials changePassword(String json, String username) {
-        EntityManager em = emf.createEntityManager();
+      
 
         JsonParser jp = new JsonParser();
         JsonObject jo = (JsonObject) jp.parse(json);
@@ -77,7 +78,7 @@ public class Facade implements facadeInterface {
             if (person.getPassword().equals(password)) {
                 person.setPassword(newpass);
                 em.getTransaction().commit();
-                em.close();
+             
             } else {
                 System.out.println("Password are not equal");
             }
@@ -88,8 +89,7 @@ public class Facade implements facadeInterface {
     //Delete a person.
     @Override
     public Credentials delete(String username) {
-        EntityManager em = emf.createEntityManager();
-
+    
         Credentials person = em.find(Credentials.class, username);
 
         if (person == null) {
@@ -100,7 +100,7 @@ public class Facade implements facadeInterface {
             Credentials p = em.find(Credentials.class, username);
             em.remove(p);
             em.getTransaction().commit();
-            em.close();
+            
         }
         return p;
 
