@@ -30,8 +30,7 @@ public class ServerCA {
     Facade facade = new Facade();
 
     //Created the entitymanager, which is used to communicate with the database.
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARESTPU");
-    EntityManager em = emf.createEntityManager();
+   
 
     public void run() throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(ip, port), 0);
