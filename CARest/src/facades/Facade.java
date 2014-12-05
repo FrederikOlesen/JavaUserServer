@@ -48,6 +48,7 @@ public class Facade implements facadeInterface {
         p = gson.fromJson(json, Credentials.class);
         em.persist(p);
         em.getTransaction().commit();
+        em.close();
 
         return p;
     }
@@ -73,6 +74,7 @@ public class Facade implements facadeInterface {
             if (person.getPassword().equals(password)) {
                 person.setPassword(newpass);
                 em.getTransaction().commit();
+                em.close();
             } else {
                 System.out.println("Password are not equal");
             }
@@ -93,6 +95,7 @@ public class Facade implements facadeInterface {
             Credentials p = em.find(Credentials.class, username);
             em.remove(p);
             em.getTransaction().commit();
+            em.close();
         }
         return p;
     }
