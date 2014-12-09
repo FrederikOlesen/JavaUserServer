@@ -22,7 +22,7 @@ public class ServerCA {
 
     //Initialized information for the server.
     static int port = 8080;
-    static String ip = "100.85.128.99";
+    static String ip = "localhost";
     static String publicFolder = "src/html/";
     static String startFile = "index.html";
     static String filesUri = "/pages";
@@ -170,7 +170,7 @@ public class ServerCA {
             try (OutputStream os = he.getResponseBody()) {
                 os.write(response.getBytes());
             }
-           
+
         }
     }
 

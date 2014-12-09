@@ -76,7 +76,7 @@ public class Facade implements facadeInterface {
         String password = jo.get("password").getAsString();
         String newpass = jo.get("confirmedpassword").getAsString();
 
-        System.out.println("Password:" + password);
+        System.out.println("Json String:" + json);
 
         Credentials person = em.find(Credentials.class, username);
 
