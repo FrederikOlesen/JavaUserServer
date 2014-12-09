@@ -20,45 +20,55 @@ public class Facade implements facadeInterface {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARESTPU");
     EntityManager em = emf.createEntityManager();
 
-    public static Facade getFacade(boolean reseet) {
-        if (true) {
-            instance = new Facade();
-        }
-        return instance;
-    }
-
+//    public static Facade getFacade(boolean reseet) {
+//        //if (true) {
+//            instance = new Facade();
+//        //}
+//        return instance;
+//    }
     public Facade() {
     }
 
     //Method to retrieve person based upon an ID.
     @Override
     public String getPersonAsJson(String username) {
-        
 
         System.out.println("You are inside getPerson");
         Credentials p = em.find(Credentials.class, username);
         System.out.println("P: " + p);
+
         return gson.toJson(p);
+
     }
 
     //Adds a new person to the database.
     @Override
     public Credentials addPersonFromGson(String json) {
-        EntityManager em = emf.createEntityManager();
+        JsonParser jp = new JsonParser();
+        JsonObject jo = (JsonObject) jp.parse(json);
 
-        System.out.println("Json: " + json);
-        em.getTransaction().begin();
-        p = gson.fromJson(json, Credentials.class);
-        em.persist(p);
-        em.getTransaction().commit();
+        String username = jo.get("username").getAsString();
 
+        Credentials p = em.find(Credentials.class, username);
+
+        if (p != null) {
+
+            System.out.println("User is already defined");
+
+        } else {
+
+            System.out.println("Json: " + json);
+            em.getTransaction().begin();
+            p = gson.fromJson(json, Credentials.class);
+            em.persist(p);
+            em.getTransaction().commit();
+        }
 
         return p;
     }
 
     @Override
     public Credentials changePassword(String json, String username) {
-      
 
         JsonParser jp = new JsonParser();
         JsonObject jo = (JsonObject) jp.parse(json);
@@ -78,7 +88,7 @@ public class Facade implements facadeInterface {
             if (person.getPassword().equals(password)) {
                 person.setPassword(newpass);
                 em.getTransaction().commit();
-             
+
             } else {
                 System.out.println("Password are not equal");
             }
@@ -89,7 +99,7 @@ public class Facade implements facadeInterface {
     //Delete a person.
     @Override
     public Credentials delete(String username) {
-    
+
         Credentials person = em.find(Credentials.class, username);
 
         if (person == null) {
@@ -100,9 +110,14 @@ public class Facade implements facadeInterface {
             Credentials p = em.find(Credentials.class, username);
             em.remove(p);
             em.getTransaction().commit();
-            
+
         }
         return p;
 
+    }
+
+    @Override
+    public void close() {
+        em.close();
     }
 }

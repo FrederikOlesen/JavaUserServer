@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import model.Credentials;
@@ -23,15 +22,15 @@ public class ServerCA {
 
     //Initialized information for the server.
     static int port = 8080;
-    static String ip = "127.0.0.1";
+    static String ip = "100.85.128.99";
     static String publicFolder = "src/html/";
     static String startFile = "index.html";
     static String filesUri = "/pages";
     Facade facade = new Facade();
 
-    //Created the entitymanager, which is used to communicate with the database.
-   
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("CARESTPU");
 
+    //Created the entitymanager, which is used to communicate with the database.
     public void run() throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(ip, port), 0);
         //REST Routes
@@ -59,7 +58,7 @@ public class ServerCA {
         Facade facade;
 
         public HandlerPerson() {
-            facade = Facade.getFacade(false);
+            facade = new Facade();
 
         }
 
@@ -81,6 +80,7 @@ public class ServerCA {
                         if (!username.isEmpty()) {  //person/id
 
                             response = facade.getPersonAsJson(username);
+
                         } else { // person
                             System.out.println("Error");
                         }
@@ -89,7 +89,6 @@ public class ServerCA {
                         status = 404;
                     }
                     break;
-
                 case "POST":
                     try {
                         InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
@@ -171,6 +170,7 @@ public class ServerCA {
             try (OutputStream os = he.getResponseBody()) {
                 os.write(response.getBytes());
             }
+           
         }
     }
 

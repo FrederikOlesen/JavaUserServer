@@ -12,5 +12,7 @@ public interface facadeInterface {
     public Credentials changePassword(String json, String username);
 
     public Credentials delete(String username);
+    
+    public void close();
 
 }

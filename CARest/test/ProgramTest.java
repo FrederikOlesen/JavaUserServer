@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.Before;
 import com.google.gson.Gson;
 import model.Credentials;
-import org.junit.After;
 import static org.junit.Assert.*;
 
 public class ProgramTest {
@@ -23,16 +22,17 @@ public class ProgramTest {
 
     @Before
     public void before() {
-        facade = Facade.getFacade(true);
+        facade = new Facade();
+
+        em.getTransaction().begin();
 
     }
 
     @Test
     public void testGetPerson() throws Exception {
 
-        em.getTransaction().begin();
-
-        String json = "{\"username\":\"cphtest\",\"password\":\"Test\",\"role\":\"STUDENT\"}";
+        String username = "cphtestjpa";
+        String json = "{\"username\":\"cphtestjpa\",\"password\":\"Test\",\"role\":\"STUDENT\"}";
 
         Credentials p = gson.fromJson(json, Credentials.class);
 
@@ -40,20 +40,16 @@ public class ProgramTest {
 
         em.getTransaction().commit();
 
-        String username = "cphtest1";
-
         final String personAsJson = facade.getPersonAsJson(username);
 
-        System.out.println("PersonasJson:" + personAsJson);
+        assertEquals(true, personAsJson.contains("{\"username\":\"cphtestjpa\",\"password\":\"Test\",\"role\":\"STUDENT\"}"));
 
-        assertEquals(true, personAsJson.contains("{\"username\":\"cphtest\",\"password\":\"Test\",\"role\":\"STUDENT\"}"));
+        facade.delete(username);
 
-        em.getTransaction().rollback();
-    }
+        final String personAsJson1 = facade.getPersonAsJson(username);
 
-    @After
-    public void tearDown() {
-        em.getTransaction().rollback();
+        assertEquals(false, personAsJson1.contains("{\"username\":\"cphtestjpa\",\"password\":\"Test\",\"role\":\"STUDENT\"}"));
+
     }
 
 }
